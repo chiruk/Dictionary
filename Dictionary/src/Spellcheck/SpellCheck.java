@@ -18,7 +18,7 @@ public class SpellCheck {
 		public SpellCheck(File file) throws FileNotFoundException{
 			
 			Scanner scan=new Scanner(file);
-			
+			dictionary=new ArrayList<String>();
 			while(scan.hasNext())
 				dictionary.add(scan.next());
 			
@@ -41,7 +41,7 @@ public class SpellCheck {
 			scan.close();
 			
 			return misspelledWords;
-		}
+		}	
 		/**
 		 * Checks the spellign of a text file/
 		 * @param file The text file
@@ -62,11 +62,14 @@ public class SpellCheck {
 		/**Checks the spelling
 		 * @param scan The scanner to be used.
 		 * @param arr The arraylist of mispelled words.
-		 */
+		 */ 
 		private void checkSpelling(Scanner scan, ArrayList<String> arr){
-			while(scan.hasNext())
-				if(dictionary.lastIndexOf(scan.next())!=-1)
-					arr.add(scan.next());
+			while(scan.hasNext()){
+				String s=scan.next();
+				if(dictionary.lastIndexOf(s.toLowerCase())==-1)
+					if(!s.equals("i") && !s.equals("I"))
+					arr.add(s);
+			}
 
 		}
 }
